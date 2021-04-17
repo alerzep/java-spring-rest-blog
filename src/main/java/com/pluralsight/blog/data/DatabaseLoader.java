@@ -8,11 +8,14 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
 @Component
-public class DatabaseLoader implements ApplicationRunner {
+public class DatabaseLoader implements ApplicationRunner
+
+    private final AuthorRepository authorRepository;
     private final PostRepository postRepository;
     private final String[] templates = {
             "Smart Home %s", "Mobile %s - For When You're On he Go", "The %s - Your New Favorite Accessory"};
@@ -21,6 +24,10 @@ public class DatabaseLoader implements ApplicationRunner {
     public List<Post> randomPosts = new ArrayList<>();
     public List<Author> authors = new ArrayList<>();
 
+        public DatabaseLoader(AuthorRepository authorRepository) {
+            this.authorRepository = authorRepository;
+        }
+
     @Autowired
     public DatabaseLoader(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -28,7 +35,15 @@ public class DatabaseLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        IntStream.range(0,40).forEach(i->{
+        authors.addAll(Arrays.asList(
+                new Author("sholderness", "Sarah",  "Holderness", "password"),
+                new Author("tbell", "Tom",  "Bell", "password"),
+                new Author("efisher", "Eric",  "Fisher", "password"),
+                new Author("csouza", "Carlos",  "Souza", "password")
+        ));
+            authorRepository.saveAll(authors);
+            
+            IntStream.range(0,40).forEach(i->{
             String template = templates[i % templates.length];
             String gadget = gadgets[i % gadgets.length];
 
