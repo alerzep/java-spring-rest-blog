@@ -35,7 +35,7 @@ public class Author {
 
     public Author() {
         super();
-        List<Post> posts = new ArrayList();
+        posts = new ArrayList();
     }
 
     public Author(String username, String firstname, String lastname, String password) {
@@ -105,6 +105,6 @@ public class Author {
     }
 
     public void addPost(Post post) {
-        return;
+        posts.add(post);
     }
 }
