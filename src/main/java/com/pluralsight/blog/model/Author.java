@@ -24,6 +24,7 @@ public class Author {
     @OneToMany
     List<Post> posts;
 
+
     public Author(List<Post> posts) {
         this.posts = posts;
     }
@@ -34,7 +35,7 @@ public class Author {
 
     public Author() {
         super();
-        ArrayList posts = new ArrayList();
+        List<Post> posts = new ArrayList();
     }
 
     public Author(String username, String firstname, String lastname, String password) {
